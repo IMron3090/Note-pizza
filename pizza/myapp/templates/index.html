@@ -1,0 +1,183 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="rus">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="{% static 'pizza.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Note pizza</title>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="container">
+        <div class="header-line">
+          <div class="header-logo">
+            <img src="{% static 'img/logo.jpg' %}" alt="" />
+          </div>
+
+          <div class="nav">
+            <ul>
+              <li><a class="nav-item" href="@">ГЛАВНАЯ</a></li>
+              <li><a class="nav-item" href="@">О НАС</a></li>
+              <li><a class="nav-item" href="@">ИСТОРИЯ ЗАКАЗОВ</a></li>
+            </ul>
+            <!-- <button onclick="getLocation()">Получить геолокацию</button> -->
+          </div>
+
+          <div class="cart">
+            <a href="#" onclick="showCart()">
+              <img class="cart-img" src="{% static 'img/cart.jpg' %}" alt="" />
+              <span class="cart-count" id="cartCount">0</span>
+            </a>
+          </div>
+
+          <div id="btn">
+            <a class="button" href="#" onclick="placeOrder()">ЗАКАЗАТЬ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <h1 class="page-title">Наши новинки</h1>
+      <div class="slider-container">
+        <div class="slider">
+          <img src="{% static 'img/supermix.jpg' %}" >
+          <img src="{% static 'img/halapenyu.jpg' %}" >
+          <img src="{% static 'img/doner.jpg' %}" >
+        </div>
+        <button class="prev-button" type="button" aria-label="">&lt;</button>
+        <button class="next-button" type="button" aria-label="">&gt;</button>
+      </div>
+    </main>
+<script>
+  const slider = document.querySelector('.slider');
+const prevButton = document.querySelector('.prev-button');
+const nextButton = document.querySelector('.next-button');
+const slides = Array.from(slider.querySelectorAll('img'));
+const slideCount = slides.length;
+let slideIndex = 0;
+
+prevButton.addEventListener('click', () => {
+  slideIndex = (slideIndex - 1 + slideCount) % slideCount;
+  slide();
+});
+
+nextButton.addEventListener('click', () => {
+  slideIndex = (slideIndex + 1) % slideCount;
+  slide();
+});
+
+const slide = () => {
+  const imageWidth = slider.clientWidth;
+  const slideOffset = -slideIndex * imageWidth;
+  slider.style.transform = `translateX(${slideOffset}px)`;
+}
+
+window.addEventListener('load', () => {
+  slide();
+});
+</script>
+
+<h2 class="page-title">Наш ассортимент</h2>
+
+    <div
+      class="icon-container"
+      data-product-name="Супер микс"
+      data-product-price="90000"
+    >
+      <img
+        src="{% static 'img/supermix.jpg' %}"
+        alt="Супер микс"
+        width="320"
+        height="240"
+      />
+      <p class="icon-label">Супер микс</p>
+      <p class="product-price">90 000</p>
+      <input
+        type="number"
+        class="product-quantity"
+        value="1"
+        min="1"
+        max="100"
+      />
+      <button class="add-to-cart" type="button" onclick="addToCart(this)">
+        Добавить в корзину
+      </button>
+    </div>
+
+    <div
+      class="icon-container"
+      data-product-name="Халапеньо"
+      data-product-price="85000"
+    >
+      <img
+        src="{% static 'img/halapenyu.jpg' %}"
+        alt="Халапеньо"
+        width="320"
+        height="240"
+      />
+      <p class="icon-label">Халапеньо</p>
+      <p class="product-price">85 000</p>
+      <input
+        type="number"
+        class="product-quantity"
+        value="1"
+        min="1"
+        max="100"
+      />
+      <button class="add-to-cart" type="button" onclick="addToCart(this)">
+        Добавить в корзину
+      </button>
+    </div>
+
+    <div
+      class="icon-container"
+      data-product-name="Донар"
+      data-product-price="95000"
+    >
+      <img
+        src="{% static 'img/doner.jpg' %}"
+        alt="Донар"
+        width="320"
+        height="240"
+      />
+      <p class="icon-label">Донар</p>
+      <p class="product-price">95 000</p>
+      <input
+        type="number"
+        class="product-quantity"
+        value="1"
+        min="1"
+        max="100"
+      />
+      <button class="add-to-cart" type="button" onclick="addToCart(this)">
+        Добавить в корзину
+      </button>
+    </div>
+
+
+
+
+    <div id="cartOverlay" class="overlay">
+      <div class="cart-modal">
+        <h2>Ваша корзина</h2>
+        <ul id="cartItemsList"></ul>
+        <button class="close-btn" onclick="hideCart()">Закрыть</button>
+        
+      </div>
+    </div>
+
+    <!-- <div id="geolocationInfo"></div>
+    <div id="geolocationInfo"></div> -->
+
+    <script src="{% static 'script.js' %}"></script>
+  </body>
+</html>
